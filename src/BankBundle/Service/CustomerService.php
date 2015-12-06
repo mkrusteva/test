@@ -46,7 +46,9 @@ class CustomerService
 			throw new FormValidationException($form);
 		}
 
-		$customer->addAccount(new Account());
+		$account = new Account();
+		$account->setCustomer($customer);
+		$customer->addAccount($account);
 		$this->customerRepo->save($customer);
 
 		return $customer;
