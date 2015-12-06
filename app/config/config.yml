@@ -78,3 +78,28 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+fos_rest: 
+    disable_csrf_role: ROLE_API
+    body_listener:
+        array_normalizer: 
+            service: fos_rest.normalizer.camel_keys
+    param_fetcher_listener: true
+    allowed_methods_listener: true
+    format_listener:
+        rules:
+            - { priorities: ['json', 'xml', 'html'], fallback_format: json, prefer_extension: true }
+    view:
+        #Response formats
+        formats: 
+            json: true
+            xml: true
+            rss: false
+        #Formats that need templating    
+        templating_formats: 
+            html: true
+        failed_validation: HTTP_BAD_REQUEST
+        view_response_listener:	true
+    routing_loader:
+        default_format: json
+    serializer:
+        serialize_null: true 

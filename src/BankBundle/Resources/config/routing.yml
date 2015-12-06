@@ -1,0 +1,7 @@
+customers:
+    type:     rest
+    resource: bank.customers_controller
+    
+accounts:
+    type:     rest
+    resource: bank.accounts_controller

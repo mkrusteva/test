@@ -1,0 +1,54 @@
+services:
+#--------------- controllers -----------------#            
+
+    bank.customers_controller:
+        class: BankBundle\Controller\CustomersController
+        scope: prototype
+        arguments: 
+            - "@request_stack"
+            - "@bank.customer_service"            
+            - "@router" 
+            
+    bank.accounts_controller:
+        class: BankBundle\Controller\AccountsController
+        scope: prototype
+        arguments: 
+            - "@request_stack"
+            - "@bank.account_service"            
+            - "@router"            
+
+#------------ end controllers ---------------#   
+
+#---------------- services ------------------#             
+            
+    bank.customer_service:
+        class: BankBundle\Service\CustomerService
+        arguments: 
+            - "@bank.customer_repo"
+            - "@form.factory"
+            
+    bank.account_service:
+        class: BankBundle\Service\AccountService
+        arguments: 
+            - "@bank.account_repo"
+            - "@form.factory"
+            
+#-------------- end services ----------------#  
+           
+            
+#-------------- repositories ----------------#  
+    bank.customer_repo:
+        class: BankBundle\Entity\CustomerRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - BankBundle\Entity\Customer
+            
+    bank.account_repo:
+        class: BankBundle\Entity\AccountRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - BankBundle\Entity\Account
+
+
