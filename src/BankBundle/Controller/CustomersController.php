@@ -33,7 +33,7 @@ class CustomersController
 	 */
 	public function getCustomersAction()
 	{
-		return $this->customerService->getCustomers($this->request->query->all());
+		return $this->customerService->getCustomers();
 	}
 
 	/**
